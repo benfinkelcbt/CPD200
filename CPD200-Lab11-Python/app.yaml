@@ -1,4 +1,4 @@
-application: cpd200-nuggets
+application: 
 version: alpha-003
 module: default
 runtime: python27
