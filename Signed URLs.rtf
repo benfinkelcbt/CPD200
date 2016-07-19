@@ -1,0 +1,87 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\froman\fprq2\fcharset0 Thorndale;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fmodern\fprq1\fcharset0 Liberation Mono;}{\f3\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue128;}
+{\stylesheet{ Normal;}{\s1 heading 1;}{\s2 heading 2;}}
+{\*\generator Riched20 10.0.10586}\viewkind4\uc1 
+\pard\keepn\s1\sb240\sa283\b\f0\fs48\lang9 Signed URLs \par
+
+\pard\sa283\b0\fs24 This page provides an overview of Signed URLs, which is a mechanism for query string authentication for buckets and objects. Signed URLs provide a way to give time-limited read or write access to anyone in possession of the URL, regardless of whether they have a Google account. To learn how to create a Signed URL, read {\f1{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/access-control/create-signed-urls-gsutil" }}{\fldrslt{\ul\cf1\cf2\ul\f0 Creating Signed URLs with gsutil}}}}\f0\fs24  and {\f1{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/access-control/create-signed-urls-program" }}{\fldrslt{\ul\cf1\cf2\ul\f0 Creating Signed URLs with a Program}}}}\f0\fs24 . To learn about other ways of controlling access to buckets and objects, read {\f1{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/access-control/index" }}{\fldrslt{\ul\cf1\cf2\ul\f0 Overview of Access Control}}}}\f0\fs24 .\f1\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 When should you use a signed URL?\par
+
+\pard\sa283\b0\fs24 In some scenarios, you might not want to require your users to have a Google account in order to access Cloud Storage, but you still want to control access using your application-specific logic. The typical way to address this use case is to provide a signed URL to a user, which gives the user read, write, or delete access to that resource for a limited time. Anyone who knows the URL can access the resource until the URL expires. You specify the expiration time in the query string to be signed.\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 Using signed URLs with resumable uploads\par
+
+\pard\sa283\b0\fs24 If your users are only uploading resources (writing) to an access-controlled bucket, you can use the {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/json_api/v1/how-tos/upload#resumable" }}{\fldrslt{\ul\cf1\cf2\ul resumable uploads}}}}\f1\fs24  functionality of Google Cloud Storage to require only one signed URL. This signed URL is part of the initial \f2 POST\f1  request, during which no data is actually uploaded. A session URI is returned from the initial \f2 POST\f1  request which can then be used in subsequent \f2 PUT\f1  requests to upload data. Since the session URI is, in effect, an authentication token, the \f2 PUT\f1  requests do not need to be signed. The \f2 POST\f1  request can be made by the server, avoiding the need for clients to use signing URLs or a Google account.\par
+\b Important:\b0  Be sure to transmit the session URI over HTTPS when giving it to a client. \par
+Resumable uploads are pinned in the region they start in. For example, if you create a resumable upload URL in the US and give it to a client in Asia, the upload still goes through the US. Performing a resumable upload in a region where it wasn't initiated can cause slow uploads. To avoid this, you can have the initial \f2 POST\f1  request constructed and signed by the server, but then give the signed URL to the client so that the upload is initiated from their location. Once inititiated, the client can use the resulting session URI normally to make \f2 PUT\f1  requests that do not need to be signed.\par
+If you use Google Compute Engine instances with processes that \f2 POST\f1  to Cloud Storage to initiate a resumable upload, then you should use Compute Engine instances in the same locations as your Cloud Storage buckets. You can then use a geo IP service to pick the Google Compute Engine region to which you route customer requests, which helps keep traffic localized to a geo-region.\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 Components of the string that requires signing\par
+
+\pard\sa283\b0\fs24 When {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/access-control/create-signed-urls-program" }}{\fldrslt{\ul\cf1\cf2\ul creating a signed URL using a program}}}}\f1\fs24 , your program constructs a string that will be signed. This string should be defined in your program as:\par
+
+\pard\f2\fs20 StringToSign = HTTP_Verb + "\\n" +\par
+               Content_MD5 + "\\n" +\par
+               Content_Type + "\\n" +\par
+               Expiration + "\\n" +\par
+               Canonicalized_Extension_Headers + "\\n" +\par
+
+\pard\sa283                Canonicalized_Resource\par
+\fs24 The components that make up this structure are described in the following table:\f1\par
+\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx2221\clvertalc\cellx5627\clvertalc\cellx7158 
+\pard\intbl\noline\sa283\qc\b\f2 String Component\f1\cell\f2 Example\f1\cell\f2 Description\f1\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx2221\clvertalc\cellx5627\clvertalc\cellx7158 
+\pard\intbl\sa283\b0\f2 HTTP_Verb\f1\cell\f2 GET\f1\cell\i\f2 Required\i0 . The {\f1{\field{\*\fldinst{HYPERLINK "https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods" }}{\fldrslt{\ul\cf1\cf2\ul\f2 HTTP verb}}}}\f2\fs24  to be used with the signed URL. \f1\par
+\b\f2 Note:\b0  The HTTP verb POST is not supported in signed URL strings, except as noted above. You can use POST to define signed policy documents, which specify the characteristics of objects that can be uploaded to a bucket. Learn more in the {\f1{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/xml-api/post-object" }}{\fldrslt{\ul\cf1\cf2\ul\f2 POST Object}}}}\f2\fs24  documentation.\f1\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx2221\clvertalc\cellx5627\clvertalc\cellx7158 
+\pard\intbl\sa283\f2 Content_MD5\f1\cell\f2 rmYdCNHKFXam78uCt7xQLw==\f1\cell\i\f2 Optional\i0 . The {\f1{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/hashes-etags#_MD5" }}{\fldrslt{\ul\cf1\cf2\ul\f2 MD5 digest value}}}}\f2\fs24  in Base64. If you provide this in the string, the client (usually a browser) must provide this HTTP header with this same value in its request.\f1\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx2221\clvertalc\cellx5627\clvertalc\cellx7158 
+\pard\intbl\sa283\f2 Content_Type\f1\cell\f2 text/plain\f1\cell\i\f2 As needed\i0 . If you provide a {\f1{\field{\*\fldinst{HYPERLINK "https://tools.ietf.org/html/rfc7231#section-3.1.1.5" }}{\fldrslt{\ul\cf1\cf2\ul\f2 content-type}}}}\f2\fs24 , the client (browser) must provide this HTTP header set to the same value.\f1\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx2221\clvertalc\cellx5627\clvertalc\cellx7158 
+\pard\intbl\sa283\f2 Expiration\f1\cell\f2 1388534400\f1\cell\i\f2 Required\i0 . This is the timestamp (represented as the number of seconds since the Unix Epoch of 00:00:00 UTC on January 1, 1970) when the signature expires. The server rejects any requests received after this timestamp.\f1\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx2221\clvertalc\cellx5627\clvertalc\cellx7158 
+\pard\intbl\sa283\f2 Canonicalized_Extension_Headers\f1\cell\f2 x-goog-acl:public-read\\nx-goog-meta-foo:bar,baz\f1\cell\i\f2 As needed\i0 . The server checks to make sure that the client provides matching values in requests using the signed URL. For information about how to create canonical headers for signing, see {\f1{\field{\*\fldinst{HYPERLINK "#about-canonical-extension-headers" }}{\fldrslt{\ul\cf1\cf2\ul\f2 Canonical extension headers}}}}\f2\fs24 .\f1\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx2221\clvertalc\cellx5627\clvertalc\cellx7158 
+\pard\intbl\sa283\f2 Canonicalized_Resource\f1\cell\f2 /bucket/objectname\f1\cell\i\f2 Required\i0 . The resource being addressed in the URL. For more details, see {\f1{\field{\*\fldinst{HYPERLINK "#about-canonical-extension-headers" }}{\fldrslt{\ul\cf1\cf2\ul\f2 Canonical resources}}}}\f2\fs24 .\f1\cell\row 
+\pard\keepn\s2\sb200\sa120\b\fs36 Signing strings with the App Engine App Identity service\par
+
+\pard\sa283\b0\fs24 When {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/access-control/create-signed-urls-program" }}{\fldrslt{\ul\cf1\cf2\ul creating a signed URL using a program}}}}\f1\fs24 , you can either sign the string from within your program, or else from within a Google App Engine application using the App Engine Identity service, which uses App Engine's service account credentials. For example, using the {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/appengine/docs/python/appidentity/" }}{\fldrslt{\ul\cf1\cf2\ul Python App Identity API}}}}\f1\fs24 , you can:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-283\li707\sa283\tx707 Use \f2 google.appengine.api.app_identity.sign_blob()\f1  to sign the bytes from your constructed string, providing the \f2 Signature\f1  you need when assembling the signed URL.\par
+{\pntext\f3\'B7\tab}Use \f2 google.appengine.api.app_identity.get_service_account_name()\f1  to retrieve a service account name, which is the \f2 GoogleAccessId\f1  you need when assembling the signed URL.\par
+
+\pard\sa283 For support in other languages, see {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/appengine/docs/java/appidentity/" }}{\fldrslt{\ul\cf1\cf2\ul App Identity Java API Overview}}}}\f1\fs24 , {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/appengine/docs/php/appidentity/" }}{\fldrslt{\ul\cf1\cf2\ul App Identity PHP API Overview}}}}\f1\fs24 , and {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/appengine/docs/go/appidentity/" }}{\fldrslt{\ul\cf1\cf2\ul App Identity Go Functions}}}}\f1\fs24 .\par
+The App Identity service rotates the private keys when it signs blobs. Signed URLs generated from the App Identity service are good for at least one hour, and are best used for short-lived access to resources.\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 Canonical extension headers\par
+
+\pard\sa283\b0\fs24 When {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/access-control/create-signed-urls-program" }}{\fldrslt{\ul\cf1\cf2\ul creating a signed URL using a program}}}}\f1\fs24 , you construct the Canonical Extension Headers portion of the message by concatenating all extension (custom) headers that begin with \f2 x-goog-\f1 . However, you cannot perform a simple concatenation. Keep the following algorithm in mind as you create the headers:\par
+
+\pard\fi-283\li707\sa283\tx707  1.\tab Make all custom header names lowercase.\par
+ 2.\tab Sort all custom headers by header name using a lexicographical sort by code point value.\par
+ 3.\tab If present, remove the \f2 x-goog-encryption-key\f1  and \f2 x-goog-encryption-key-sha256\f1  headers. These headers contain sensitive information that must not be included in the string-to-sign; however, these headers must still be used in any requests that use the generated signed URL.\par
+ 4.\tab Eliminate duplicate header names by creating one header name with a comma-separated list of values. Be sure there is no whitespace between the values, and be sure that the order of the comma-separated list matches the order that the headers appear in your request. For more information, see {{\field{\*\fldinst{HYPERLINK "https://tools.ietf.org/html/rfc7230#section-3.2" }}{\fldrslt{\ul\cf1\cf2\ul RFC 7230 section 3.2}}}}\f1\fs24 .\par
+ 5.\tab Replace any folding whitespace or newlines (CRLF or LF) with a single space. For more information about folding whitespace, see {{\field{\*\fldinst{HYPERLINK "https://tools.ietf.org/html/rfc7230#section-3.2.4" }}{\fldrslt{\ul\cf1\cf2\ul RFC 7230, section 3.2.4.}}}}\f1\fs24\par
+ 6.\tab Remove any whitespace around the colon that appears after the header name.\par
+ 7.\tab Append a newline (U+000A) to each custom header.\par
+ 8.\tab Concatenate all custom headers.\par
+
+\pard\sa283\b Important:\b0  You must use both the header name and the header value when you construct the Canonical Extension Headers portion of the query string. Be sure to remove any whitespace around the colon that separates the header name and value. For example, using the custom header \f2 x-goog-acl: private\f1  without removing the space after the colon returns a \f2 403 Forbidden\f1  error, because the request signature you calculate does not match the signature Google calculates. \par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 Canonical resources\par
+
+\pard\sa283\b0\fs24 When {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/storage/docs/access-control/create-signed-urls-program" }}{\fldrslt{\ul\cf1\cf2\ul creating a signed URL using a program}}}}\f1\fs24 , you construct the Canonicalized Resource portion of the message by concatenating the resource path (bucket and object and subresource) that the request is acting on. Keep the following in mind as you create the resource:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-283\li707\sa283\tx707 The canonical resource is everything that follows the host name. For example, if the Cloud Storage URL is {\f2{\field{\*\fldinst{HYPERLINK https://storage.googleapis.com/example-bucket/cat-pics/tabby.jpeg }}{\fldrslt{https://storage.googleapis.com/example-bucket/cat-pics/tabby.jpeg\ul0\cf0}}}}\f1\fs24 , then the canonical resource is \f2 /example-bucket/cat-pics/tabby.jpeg\f1 .\par
+{\pntext\f3\'B7\tab}If the request is scoped to a subresource, such as \f2 ?cors\f1 , add this subresource, including the question mark, to the end of the string.\par
+{\pntext\f3\'B7\tab}Be sure to copy the HTTP request path literally: that is, you should include all URL encoding (percent signs) in the string that you create. Also, be sure that you include only query string parameters that designate subresources (such as \f2 cors\f1 ). You should not include query string parameters such as \f2 ?prefix\f1 , \f2 ?max-keys\f1 , \f2 ?marker\f1 , and \f2 ?delimiter\f1 .\par
+
+\pard\sa283 Except as otherwise noted, the content of this page is licensed under the {{\field{\*\fldinst{HYPERLINK "http://creativecommons.org/licenses/by/3.0/" }}{\fldrslt{\ul\cf1\cf2\ul Creative Commons Attribution 3.0 License}}}}\f1\fs24 , and code samples are licensed under the {{\field{\*\fldinst{HYPERLINK "http://www.apache.org/licenses/LICENSE-2.0" }}{\fldrslt{\ul\cf1\cf2\ul Apache 2.0 License}}}}\f1\fs24 . For details, see our {{\field{\*\fldinst{HYPERLINK "https://cloud.google.com/site-policies" }}{\fldrslt{\ul\cf1\cf2\ul Site Policies}}}}\f1\fs24 .\par
+Last updated May 20, 2016. \par
+
+\pard\par
+\par
+}
+ 

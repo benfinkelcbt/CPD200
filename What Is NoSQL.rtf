@@ -1,0 +1,137 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\froman\fprq2\fcharset0 Thorndale;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil Tahoma;}{\f3\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue128;}
+{\*\listtable 
+{\list\listhybrid
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f3\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f3\jclisttab\tx0}\listid1 }
+{\list\listhybrid
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f3\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f3\jclisttab\tx0}\listid2 }
+{\list\listhybrid
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f3\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f3\jclisttab\tx0}\listid3 }}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}}
+{\stylesheet{ Normal;}{\s1 heading 1;}{\s2 heading 2;}{\s3 heading 3;}}
+{\*\generator Riched20 10.0.10586}\viewkind4\uc1 
+\pard\keepn\s1\sb240\sa283\b\f0\fs48\lang9 NoSQL Databases Explained\par
+
+\pard\sa283 {\b0\f1\fs24{\field{\*\fldinst{HYPERLINK "file:///collateral/top-5-considerations-when-evaluating-nosql-databases%3Fjmp=hero" }}{\fldrslt{\ul\cf1\cf2\ul\f0 Download the White Paper}}}}\b0\f1\fs24\par
+
+\pard 
+{\listtext\f1\u10625?\tab}\ls1\fi-283\li707\tx707\b\f0 What is NoSQL?\b0\f1\par
+{\listtext\f1 1\tab}\f0\fs20 NoSQL Database Types\f1\fs24\par
+{\listtext\f1 2\tab}\f0\fs20 The Benefits of NoSQL\f1\fs24\par
+{\listtext\f1 3\tab}\f0\fs20 Dynamic Schemas\f1\fs24\par
+{\listtext\f1 4\tab}\f0\fs20 Auto Sharding\f1\fs24\par
+{\listtext\f1 5\tab}\f0\fs20 Replication\f1\fs24\par
+{\listtext\f1 6\tab}\f0\fs20 Integrated Caching\f1\fs24\par
+{\listtext\f1 7\tab}\f0\fs20 Summary\f1\fs24\par
+
+\pard 
+{\listtext\f1\u10625?\tab}\ls1\fi-283\li707\sa283\tx707\f0\fs20 Implementing NoSQL\f1\fs24\par
+
+\pard 
+{\listtext\f1\u10625?\tab}\ls1\ilvl1\keepn\s2\sb200\sa120\b\fs36 What is NoSQL?\par
+
+\pard\sa283\b0\fs24 NoSQL encompasses a wide variety of different database technologies that were developed in response to the demands presented in building modern applications:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-283\li707\sa283\tx707 Developers are working with applications that create massive volumes of new, rapidly changing data types \f2\emdash\f1  structured, semi-structured, unstructured and polymorphic data.\par
+{\pntext\f3\'B7\tab}Long gone is the twelve-to-eighteen month waterfall development cycle. Now small teams work in agile sprints, iterating quickly and pushing code every week or two, some even multiple times every day.\par
+{\pntext\f3\'B7\tab}Applications that once served a finite audience are now delivered as services that must be always-on, accessible from many different devices and scaled globally to millions of users.\par
+{\pntext\f3\'B7\tab}Organizations are now turning to scale-out architectures using open source software, commodity servers and cloud computing instead of large monolithic servers and storage infrastructure.\par
+
+\pard\sa283 Relational databases were not designed to cope with the scale and agility challenges that face modern applications, nor were they built to take advantage of the commodity storage and processing power available today.\par
+
+\pard\keepn\s3\sb140\sa120\b\fs28 Read our free white paper: Top 5 Considerations When Evaluating NoSQL Databases and learn about:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-283\li707\sa283\tx707\b0\fs24 Selecting the appropriate data model: document, key-value & wide column, or graph model\par
+{\pntext\f3\'B7\tab}The pros and cons of consistent and eventually consistent systems\par
+{\pntext\f3\'B7\tab}Why idiomatic drivers minimize onboarding time for new developers and simplify application development\par
+
+\pard\sa283 {{\field{\*\fldinst{HYPERLINK "file:///lp/white-paper/nosql-considerations" }}{\fldrslt{\ul\cf1\cf2\ul Download the White Paper}}}}\f1\fs24\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 NoSQL Database Types\par
+
+\pard 
+{\listtext\f1\u10625?\tab}\ls2\fi-283\li707\sa283\tx707\fs24 Document databases\b0  pair each key with a complex data structure known as a document. Documents can contain many different key-value pairs, or key-array pairs, or even nested documents.\par
+{\listtext\f1 1\tab}\b Graph stores\b0  are used to store information about networks of data, such as social connections. Graph stores include Neo4J and Giraph.\par
+{\listtext\f1 2\tab}\b Key-value stores\b0  are the simplest NoSQL databases. Every single item in the database is stored as an attribute name (or 'key'), together with its value. Examples of key-value stores are Riak and Berkeley DB. Some key-value stores, such as Redis, allow each value to have a type, such as 'integer', which adds functionality.\par
+{\listtext\f1 3\tab}\b Wide-column stores\b0  such as Cassandra and HBase are optimized for queries over large datasets, and store columns of data together, instead of rows.\par
+
+\pard 
+{\listtext\f1\u10625?\tab}\ls2\ilvl1\keepn\s2\sb200\sa120\b\fs36 The Benefits of NoSQL\par
+
+\pard\sa283\b0\fs24 When compared to relational databases, NoSQL databases are{{\field{\*\fldinst{HYPERLINK "#\{products_scalability_path\}" }}{\fldrslt{\ul\cf1\cf2\ul more scalable and provide superior performance,}}}}\f1\fs24 and their data model addresses several issues that the relational model is not designed to address:\par
+
+\pard 
+{\listtext\f1\u10625?\tab}\ls3\fi-283\li707\sa283\tx707 Large volumes of rapidly changing structured, semi-structured, and unstructured data\par
+{\listtext\f1 1\tab}Agile sprints, quick schema iteration, and frequent code pushes\par
+{\listtext\f1 2\tab}Object-oriented programming that is easy to use and flexible\par
+{\listtext\f1 3\tab}Geographically distributed scale-out architecture instead of expensive, monolithic architecture\par
+
+\pard 
+{\listtext\f1\u10625?\tab}\ls3\ilvl1\keepn\s2\sb200\sa120\b\fs36 Dynamic Schemas\par
+
+\pard\sa283\b0\fs24 Relational databases require that schemas be defined before you can add data. For example, you might want to store data about your customers such as phone numbers, first and last name, address, city and state \f2\endash\f1  a SQL database needs to know what you are storing in advance.\par
+This fits poorly with {{\field{\*\fldinst{HYPERLINK "file:///agile-development" }}{\fldrslt{\ul\cf1\cf2\ul agile development}}}}\f1\fs24  approaches, because each time you complete new features, the schema of your database often needs to change. So if you decide, a few iterations into development, that you'd like to store customers' favorite items in addition to their addresses and phone numbers, you'll need to add that column to the database, and then migrate the entire database to the new schema.\par
+If the database is large, this is a very slow process that involves significant downtime. If you are frequently changing the data your application stores \f2\endash\f1  because you are iterating rapidly \f2\endash\f1  this downtime may also be frequent. There's also no way, using a relational database, to effectively address data that's completely unstructured or unknown in advance.\par
+NoSQL databases are built to allow the insertion of data without a predefined schema. That makes it easy to make significant application changes in real-time, without worrying about service interruptions \f2\endash\f1  which means development is faster, code integration is more reliable, and less database administrator time is needed. Developers have typically had to add application-side code to enforce data quality controls, such as mandating the presence of specific fields, data types or permissible values. More sophisticated NoSQL databases allow validation rules to be applied within the database, allowing users to enforce governance across data, while maintaining the agility benefits of a dynamic schema.\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 Auto-sharding\par
+
+\pard\sa283\b0\fs24 Because of the way they are structured, relational databases usually scale vertically \f2\endash\f1  a single server has to host the entire database to ensure acceptable performance for cross- table joins and transactions. This gets expensive quickly, places limits on scale, and creates a relatively small number of failure points for database infrastructure. The solution to support rapidly growing applications is to scale horizontally, by adding servers instead of concentrating more capacity in a single server.\par
+'Sharding' a database across many server instances can be achieved with SQL databases, but usually is accomplished through SANs and other complex arrangements for making hardware act as a single server. Because the database does not provide this ability natively, development teams take on the work of deploying multiple relational databases across a number of machines. Data is stored in each database instance autonomously. Application code is developed to distribute the data, distribute queries, and aggregate the results of data across all of the database instances. Additional code must be developed to handle resource failures, to perform joins across the different databases, for data rebalancing, replication, and other requirements. Furthermore, many benefits of the relational database, such as transactional integrity, are compromised or eliminated when employing manual sharding.\par
+NoSQL databases, on the other hand, usually support auto-sharding, meaning that they natively and automatically spread data across an arbitrary number of servers, without requiring the application to even be aware of the composition of the server pool. Data and query load are automatically balanced across servers, and when a server goes down, it can be quickly and transparently replaced with no application disruption.\par
+{{\field{\*\fldinst{HYPERLINK "file:///big-data-explained" }}{\fldrslt{\ul\cf1\cf2\ul Cloud computing}}}}\f1\fs24  makes this significantly easier, with providers such as Amazon Web Services providing virtually unlimited capacity on demand, and taking care of all the necessary infrastructure administration tasks. Developers no longer need to construct complex, expensive platforms to support their applications, and can concentrate on writing application code. Commodity servers can provide the same processing and storage capabilities as a single high-end server for a fraction of the price.\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 Replication\par
+
+\pard\sa283\b0\fs24 Most NoSQL databases also support automatic database replication to maintain availability in the event of outages or planned maintenance events. More sophisticated NoSQL databases are fully self-healing, offering automated failover and recovery, as well as the ability to distribute the database across multiple geographic regions to withstand regional failures and enable data localization. Unlike relational databases, NoSQL databases generally have no requirement for separate applications or expensive add-ons to implement replication.\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 Integrated Caching\par
+
+\pard\sa283\b0\fs24 A number of products provide a caching tier for SQL database systems. These systems can improve read performance substantially, but they do not improve write performance, and they add operational complexity to system deployments. If your application is dominated by reads then a distributed cache could be considered, but if your application has just a modest write volume, then a distributed cache may not improve the overall experience of your end users, and will add complexity in managing cache invalidation.\par
+Many NoSQL database technologies have excellent integrated caching capabilities, keeping frequently-used data in system memory as much as possible and removing the need for a separate caching layer. Some NoSQL databases also offer fully managed, integrated in-memory database management layer for workloads demanding the highest throughput and lowest latency.\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 NoSQL vs. SQL Summary\par
+\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\noline\sa283\qc\fs4\cell\fs24 SQL Databases\cell NOSQL Databases\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283 Types\b0\cell One type (SQL database) with minor variations\cell Many different types including key-value stores, {{\field{\*\fldinst{HYPERLINK "file:///document-databases" }}{\fldrslt{\ul\cf1\cf2\ul document databases}}}}\f1\fs24 , wide-column stores, and graph databases\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283\b Development History\b0\cell Developed in 1970s to deal with first wave of data storage applications\cell Developed in late 2000s to deal with limitations of SQL databases, especially scalability, multi-structured data, geo-distribution and agile development sprints\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283\b Examples\b0\cell MySQL, Postgres, Microsoft SQL Server, Oracle Database\cell MongoDB, Cassandra, HBase, Neo4j\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283\b Data Storage Model\b0\cell Individual records (e.g., 'employees') are stored as rows in tables, with each column storing a specific piece of data about that record (e.g., 'manager,' 'date hired,' etc.), much like a spreadsheet. Related data is stored in separate tables, and then joined together when more complex queries are executed. For example, 'offices' might be stored in one table, and 'employees' in another. When a user wants to find the work address of an employee, the database engine joins the 'employee' and 'office' tables together to get all the information necessary.\cell Varies based on database type. For example, key-value stores function similarly to SQL databases, but have only two columns ('key' and 'value'), with more complex information sometimes stored as BLOBs within the 'value' columns. Document databases do away with the table-and-row model altogether, storing all relevant data together in single 'document' in JSON, XML, or another format, which can nest values hierarchically.\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283\b Schemas\b0\cell Structure and data types are fixed in advance. To store information about a new data item, the entire database must be altered, during which time the database must be taken offline.\cell Typically dynamic, with some enforcing data validation rules. Applications can add new fields on the fly, and unlike SQL table rows, dissimilar data can be stored together as necessary. For some databases (e.g., wide-column stores), it is somewhat more challenging to add new fields dynamically.\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283\b Scaling\b0\cell Vertically, meaning a single server must be made increasingly powerful in order to deal with increased demand. It is possible to spread SQL databases over many servers, but significant additional engineering is generally required, and core relational features such as JOINs, referential integrity and transactions are typically lost.\cell Horizontally, meaning that to add capacity, a database administrator can simply add more commodity servers or cloud instances. The database automatically spreads data across servers as necessary.\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283\b Development Model\b0\cell Mix of open-source (e.g., Postgres, MySQL) and closed source (e.g., Oracle Database)\cell Open-source\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283\b Supports Transactions\b0\cell Yes, updates can be configured to complete entirely or not at all\cell In certain circumstances and at certain levels (e.g., document level vs. database level)\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283\b Data Manipulation\b0\cell Specific language using Select, Insert, and Update statements, e.g. SELECT fields FROM table WHERE\'85\cell Through object-oriented APIs\cell\row\trowd\trgaph10\trpaddl10\trpaddr10\trpaddfl3\trpaddfr3
+\clvertalc\cellx1456\clvertalc\cellx2702\clvertalc\cellx4248 
+\pard\intbl\sa283\b Consistency\b0\cell Can be configured for strong consistency\cell Depends on product. Some provide strong consistency (e.g., MongoDB, with tunable consistency for reads) whereas others offer eventual consistency (e.g., Cassandra).\cell\row 
+\pard\keepn\s2\sb200\sa120\b\fs36 Implementing a NoSQL Database at Your Organization\par
+
+\pard\sa283\b0\fs24 Often, organizations will begin with a small-scale trial of a NoSQL database in their organization, which makes it possible to develop an understanding of the technology in a low-stakes way. Most NoSQL databases are also open-source, meaning that they can be downloaded, implemented and scaled at little cost. Because development cycles are faster, organizations can also innovate more quickly and deliver superior customer experience at a lower cost.\par
+As you consider alternatives to legacy infrastructures, you may have several motivations: to scale or perform beyond the capabilities of your existing system, identify viable alternatives to expensive proprietary software, or increase the speed and agility of development. When selecting the right database for your business and application, there are five important dimensions to consider.\par
+
+\pard\keepn\s2\sb200\sa120\b\fs36 Free White Paper\par
+
+\pard\sa283\b0\fs24 Read our free white paper:\i Top 5 Considerations When Evaluating NoSQL Databases\i0 and learn about:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-283\li707\sa283\tx707 Selecting the appropriate data model: document, key-value & wide column, or graph model\par
+{\pntext\f3\'B7\tab}The pros and cons of consistent and eventually consistent systems\par
+{\pntext\f3\'B7\tab}Why idiomatic drivers minimize onboarding time for new developers and simplify application development\par
+
+\pard\sa283 {{\field{\*\fldinst{HYPERLINK "file:///lp/white-paper/nosql-considerations" }}{\fldrslt{\ul\cf1\cf2\ul Download your copy}}}}\f1\fs24\par
+
+\pard\sa283\par
+}
+ 
